@@ -21,6 +21,6 @@ where processed_payments.rn = 1
 select
   orderid           as order_id,
   SUM(amount) / 100 as amount
-from raw.stripe.payment
+from {{ source('stripe', 'payments') }}
 where status = 'success'
 group by order_id
